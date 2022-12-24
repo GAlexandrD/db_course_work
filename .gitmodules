@@ -1,0 +1,3 @@
+[submodule "src/js/nest-app"]
+	path = src/js/nest-app
+	url = https://github.com/GAlexandrD/nest-app.git
