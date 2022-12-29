@@ -276,3 +276,308 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
 ## RESTfull сервіс для управління даними
 
+### Підключення до бази та визначення моделей
+
+```ts
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model access {
+  id      Bytes @unique(map: "id_UNIQUE") @default(dbgenerated("(uuid_to_bin(uuid()))")) @db.Binary(16)
+  user_id Bytes @db.Binary(16)
+  role_id Bytes @db.Binary(16)
+  role    role  @relation(fields: [role_id], references: [id], map: "fk_access_role")
+  user    user  @relation(fields: [user_id], references: [id], map: "fk_access_user")
+
+  @@id([id, user_id, role_id])
+  @@index([role_id], map: "fk_access_role1_idx")
+  @@index([user_id], map: "fk_access_user_idx")
+}
+
+model board {
+  id          Bytes   @unique(map: "id_UNIQUE") @default(dbgenerated("(uuid_to_bin(uuid()))")) @db.Binary(16)
+  name        String  @db.VarChar(45)
+  description String? @db.VarChar(200)
+  project_id  Bytes   @db.Binary(16)
+  project     project @relation(fields: [project_id], references: [id], map: "fk_board_project")
+  task        task[]
+
+  @@id([id, project_id])
+  @@index([project_id], map: "fk_board_project1_idx")
+}
+
+model grant {
+  request_type_id Bytes        @db.Binary(16)
+  role_id         Bytes        @db.Binary(16)
+  request_type    request_type @relation(fields: [request_type_id], references: [id], map: "fk_grant_request")
+  role            role         @relation(fields: [role_id], references: [id], map: "fk_grant_role")
+
+  @@id([request_type_id, role_id])
+  @@index([role_id], map: "fk_grant_role1_idx")
+}
+
+model operation_type {
+  id           Bytes               @id @unique(map: "id_UNIQUE") @default(dbgenerated("(uuid_to_bin(uuid()))")) @db.Binary(16)
+  name         operation_type_name @unique(map: "name_UNIQUE")
+  request_type request_type[]
+}
+
+model project {
+  id           Bytes     @unique(map: "id_UNIQUE") @default(dbgenerated("(uuid_to_bin(uuid()))")) @db.Binary(16)
+  name         String    @db.VarChar(45)
+  description  String?   @db.VarChar(45)
+  manager_id   Bytes     @db.Binary(16)
+  workspace_id Bytes     @db.Binary(16)
+  board        board[]
+  user         user      @relation(fields: [manager_id], references: [id], map: "fk_project_user")
+  workspace    workspace @relation(fields: [workspace_id], references: [id], map: "fk_project_workspace")
+
+  @@id([manager_id, workspace_id, id])
+  @@index([manager_id], map: "fk_project_user1_idx")
+  @@index([workspace_id], map: "fk_project_workspace1_idx")
+}
+
+model request_type {
+  id                Bytes          @unique(map: "id_UNIQUE") @default(dbgenerated("(uuid_to_bin(uuid()))")) @db.Binary(16)
+  object_id         Bytes          @db.Binary(16)
+  operation_type_id Bytes          @db.Binary(16)
+  grant             grant[]
+  operation_type    operation_type @relation(fields: [operation_type_id], references: [id], map: "fk_request_operation")
+
+  @@id([id, object_id, operation_type_id])
+  @@index([operation_type_id], map: "fk_request_type_operation_type1_idx")
+}
+
+model role {
+  id     Bytes     @id @unique(map: "id_UNIQUE") @default(dbgenerated("(uuid_to_bin(uuid()))")) @db.Binary(16)
+  name   role_name
+  access access[]
+  grant  grant[]
+}
+
+model status {
+  id          Bytes         @id @unique(map: "id_UNIQUE") @default(dbgenerated("(uuid_to_bin(uuid()))")) @db.Binary(16)
+  name        status_name   @unique(map: "name_UNIQUE")
+  task_status task_status[]
+}
+
+model task {
+  id          Bytes         @unique(map: "id_UNIQUE") @default(dbgenerated("(uuid_to_bin(uuid()))")) @db.Binary(16)
+  title       String        @db.VarChar(45)
+  description String?       @db.VarChar(200)
+  photo       String?       @db.VarChar(100)
+  deadline    DateTime?     @db.DateTime(0)
+  board_id    Bytes         @db.Binary(16)
+  board       board         @relation(fields: [board_id], references: [id], map: "fk_task_board")
+  task_status task_status[]
+
+  @@id([id, board_id])
+  @@index([board_id], map: "fk_task_board1_idx")
+}
+
+model task_status {
+  task_id   Bytes  @db.Binary(16)
+  status_id Bytes  @db.Binary(16)
+  status    status @relation(fields: [status_id], references: [id], map: "fk_task_status_status")
+  task      task   @relation(fields: [task_id], references: [id], map: "fk_task_status_task")
+
+  @@id([task_id, status_id])
+  @@index([status_id], map: "fk_task_status_status1_idx")
+}
+
+model user {
+  id        Bytes      @id @unique(map: "id_UNIQUE") @default(dbgenerated("(uuid_to_bin(uuid()))")) @db.Binary(16)
+  email     String     @unique(map: "email_UNIQUE") @db.VarChar(45)
+  username  String     @unique(map: "username_UNIQUE") @db.VarChar(45)
+  avatar    String?    @db.VarChar(100)
+  access    access[]
+  project   project[]
+  workspace workspace?
+}
+
+model workspace {
+  id          Bytes     @unique(map: "id_UNIQUE") @default(dbgenerated("(uuid_to_bin(uuid()))")) @db.Binary(16)
+  name        String    @unique(map: "name_UNIQUE") @db.VarChar(45)
+  description String?   @db.VarChar(200)
+  owner_id    Bytes     @unique(map: "owner_id_UNIQUE") @db.Binary(16)
+  project     project[]
+  user        user      @relation(fields: [owner_id], references: [id], map: "fk_workspace_user")
+
+  @@id([id, owner_id])
+  @@index([owner_id], map: "fk_workspace_user1_idx")
+}
+
+enum operation_type_name {
+  create
+  read
+  update
+  delete
+}
+
+enum role_name {
+  ProjectManager
+  ProjectUser
+  SystemAdministrator
+  WorkspaceManager
+}
+
+enum status_name {
+  Done
+  BugFound
+  InReview
+  InProgress
+  ToDo
+  BackLog
+}
+
+
+```
+
+### Файл контролерів, які оброблюють запити
+
+```ts
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
+import { StatusService } from './status.service';
+import { CreateStatusDto } from './dto/create-status.dto';
+import { UpdateStatusDto } from './dto/update-status.dto';
+import { ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import { StatusEntity } from './entities/status.entity';
+
+@Controller('status')
+@ApiTags('status')
+export class StatusController {
+  constructor(private readonly statusService: StatusService) {}
+
+  @Post()
+  @ApiCreatedResponse({ type: StatusEntity })
+  create(@Body() createStatusDto: CreateStatusDto) {
+    return this.statusService.create(createStatusDto);
+  }
+
+  @Get()
+  @ApiOkResponse({ type: StatusEntity, isArray: true })
+  findAll() {
+    return this.statusService.findAll();
+  }
+
+  @Get(':id')
+  @ApiOkResponse({ type: StatusEntity })
+  findOne(@Param('id') id: string) {
+    return this.statusService.findOne(id);
+  }
+
+  @Patch(':id')
+  @ApiOkResponse({ type: StatusEntity })
+  update(@Param('id') id: string, @Body() updateStatusDto: UpdateStatusDto) {
+    return this.statusService.update(id, updateStatusDto);
+  }
+
+  @Delete(':id')
+  @ApiOkResponse({ type: StatusEntity })
+  remove(@Param('id') id: string) {
+    return this.statusService.remove(id);
+  }
+}
+```
+
+### Файл сервісу який робить запити до бази даних
+
+```ts
+import { Body, Injectable, NotFoundException } from '@nestjs/common';
+import { CreateStatusDto } from './dto/create-status.dto';
+import { UpdateStatusDto } from './dto/update-status.dto';
+import { PrismaService } from 'src/prisma/prisma.service';
+
+@Injectable()
+export class StatusService {
+  constructor(private prisma: PrismaService) {}
+  async create(@Body() createStatusDto: CreateStatusDto) {
+    try {
+      const status = await this.prisma.status.create({ data: createStatusDto });
+      const id: string = this.prisma.hex(status.id);
+      return { ...status, id };
+    } catch (error) {
+      throw new NotFoundException('invalis status');
+    }
+  }
+
+  async findAll() {
+    const statuses = await this.prisma.status.findMany({});
+    const responseStatuses = statuses.map((status) => ({
+      ...status,
+      id: this.prisma.hex(status.id),
+    }));
+    return responseStatuses;
+  }
+
+  async findOne(id: string) {
+    const idUnHexed: Buffer = this.prisma.unhex(id);
+    const status = await this.prisma.status.findFirst({
+      where: { id: idUnHexed },
+    });
+    if (!status)
+      throw new NotFoundException(`status with id: ${id} does not exist`);
+    return { ...status, id };
+  }
+
+  async update(id: string, updateStatusDto: UpdateStatusDto) {
+    const idUnHexed: Buffer = this.prisma.unhex(id);
+    const status = await this.prisma.status.update({
+      where: { id: idUnHexed },
+      data: updateStatusDto,
+    });
+    if (!status)
+      throw new NotFoundException(`status with id: ${id} does not exist`);
+    return { ...status, id };
+  }
+
+  async remove(id: string) {
+    const idUnHexed: Buffer = this.prisma.unhex(id);
+    const status = await this.prisma.status.delete({
+      where: { id: idUnHexed },
+    });
+    if (!status)
+      throw new NotFoundException(`status with id: ${id} does not exist`);
+    return { message: `status ${status.name} was deleted` };
+  }
+}
+
+```
+
+### Кореневий файл серверу
+
+```ts
+import { NestFactory } from '@nestjs/core';
+import { AppModule } from './app.module';
+import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+
+async function bootstrap() {
+  const app = await NestFactory.create(AppModule);
+  const config = new DocumentBuilder()
+    .setTitle('Median')
+    .setDescription('The Median API description')
+    .setVersion('0.1')
+    .build();
+
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('api', app, document);
+  await app.listen(3000);
+}
+bootstrap();
+
+
+```
