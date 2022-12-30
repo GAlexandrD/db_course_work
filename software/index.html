@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Реалізація інформаційного та програмного забезпечення | Система управління проєктами</title>
+    <meta name="generator" content="VuePress 1.8.2">
+    <link rel="icon" href="/db_course_work/favicon.ico">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <meta name="description" content="Курсова робота з дисципліни "Бази даних"">
+    
+    <link rel="preload" href="/db_course_work/assets/css/0.styles.107f6bfd.css" as="style"><link rel="preload" href="/db_course_work/assets/js/app.49997985.js" as="script"><link rel="preload" href="/db_course_work/assets/js/2.be347b12.js" as="script"><link rel="preload" href="/db_course_work/assets/js/23.1cf13222.js" as="script"><link rel="prefetch" href="/db_course_work/assets/js/10.c2d6dd61.js"><link rel="prefetch" href="/db_course_work/assets/js/11.3c19866e.js"><link rel="prefetch" href="/db_course_work/assets/js/12.c1d64cde.js"><link rel="prefetch" href="/db_course_work/assets/js/13.edd53f9c.js"><link rel="prefetch" href="/db_course_work/assets/js/14.812ff0f3.js"><link rel="prefetch" href="/db_course_work/assets/js/15.9bd3d2e8.js"><link rel="prefetch" href="/db_course_work/assets/js/16.d2ff2c7e.js"><link rel="prefetch" href="/db_course_work/assets/js/17.a60341d8.js"><link rel="prefetch" href="/db_course_work/assets/js/18.5a25b29d.js"><link rel="prefetch" href="/db_course_work/assets/js/19.e5f65da6.js"><link rel="prefetch" href="/db_course_work/assets/js/20.03e0853e.js"><link rel="prefetch" href="/db_course_work/assets/js/21.1abe1c30.js"><link rel="prefetch" href="/db_course_work/assets/js/22.7f609428.js"><link rel="prefetch" href="/db_course_work/assets/js/24.81787249.js"><link rel="prefetch" href="/db_course_work/assets/js/25.d74f0e57.js"><link rel="prefetch" href="/db_course_work/assets/js/26.f5424b81.js"><link rel="prefetch" href="/db_course_work/assets/js/3.08f49a2e.js"><link rel="prefetch" href="/db_course_work/assets/js/4.86a4386e.js"><link rel="prefetch" href="/db_course_work/assets/js/5.53518b16.js"><link rel="prefetch" href="/db_course_work/assets/js/6.aabb1671.js"><link rel="prefetch" href="/db_course_work/assets/js/7.f113d948.js"><link rel="prefetch" href="/db_course_work/assets/js/8.7de00471.js"><link rel="prefetch" href="/db_course_work/assets/js/9.0fa86d82.js">
+    <link rel="stylesheet" href="/db_course_work/assets/css/0.styles.107f6bfd.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/db_course_work/" class="home-link router-link-active"><!----> <span class="site-name">Система управління проєктами</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/db_course_work/" class="nav-link">
+  Початок
+</a></div> <a href="https://github.com/just-hoshinon/db_course_work" target="_blank" rel="noopener noreferrer" class="repo-link">
+    Github
+    <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/db_course_work/" class="nav-link">
+  Початок
+</a></div> <a href="https://github.com/just-hoshinon/db_course_work" target="_blank" rel="noopener noreferrer" class="repo-link">
+    Github
+    <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></nav>  <ul class="sidebar-links"><li><a href="/db_course_work/intro/" class="sidebar-link">Вступ</a></li><li><section class="sidebar-group collapsable depth-0"><a href="/db_course_work/requirements/" class="sidebar-heading clickable"><span>Розроблення загальних вимог до системи</span> <span class="arrow right"></span></a> <!----></section></li><li><a href="/db_course_work/use%20cases/" class="sidebar-link">Розроблення вимог до функціональності системи</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/db_course_work/use%20cases/#загальна-схема" class="sidebar-link">Загальна схема</a></li><li class="sidebar-sub-header"><a href="/db_course_work/use%20cases/#користувач-системи" class="sidebar-link">Користувач системи</a></li><li class="sidebar-sub-header"><a href="/db_course_work/use%20cases/#користувач-проєкту" class="sidebar-link">Користувач проєкту</a></li><li class="sidebar-sub-header"><a href="/db_course_work/use%20cases/#менеджер-проєкту" class="sidebar-link">Менеджер проєкту</a></li><li class="sidebar-sub-header"><a href="/db_course_work/use%20cases/#менеджер-воркспеису" class="sidebar-link">Менеджер воркспейсу</a></li><li class="sidebar-sub-header"><a href="/db_course_work/use%20cases/#адміністратор-системи" class="sidebar-link">Адміністратор системи</a></li></ul></li><li><a href="/db_course_work/design/" class="sidebar-link">Проектування інформаційного забезпечення</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/db_course_work/design/#модель-бізнес-об-єктів" class="sidebar-link">Модель бізнес об'єктів</a></li><li class="sidebar-sub-header"><a href="/db_course_work/design/#модель-сутність-зв-язок" class="sidebar-link">Модель Сутність-Зв'язок</a></li><li class="sidebar-sub-header"><a href="/db_course_work/design/#опис-er-моделі" class="sidebar-link">Опис ER-моделі</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/db_course_work/design/#user-користувач" class="sidebar-link">User (Користувач)</a></li><li class="sidebar-sub-header"><a href="/db_course_work/design/#workspace-воркспеис" class="sidebar-link">Workspace (Воркспейс)</a></li><li class="sidebar-sub-header"><a href="/db_course_work/design/#project-проєкт" class="sidebar-link">Project (Проєкт)</a></li><li class="sidebar-sub-header"><a href="/db_course_work/design/#task-завдання" class="sidebar-link">Task (Завдання)</a></li><li class="sidebar-sub-header"><a href="/db_course_work/design/#board-дошка" class="sidebar-link">Board (Дошка)</a></li><li class="sidebar-sub-header"><a href="/db_course_work/design/#status-статус" class="sidebar-link">Status (Статус)</a></li><li class="sidebar-sub-header"><a href="/db_course_work/design/#access" class="sidebar-link">Access</a></li><li class="sidebar-sub-header"><a href="/db_course_work/design/#role-роль" class="sidebar-link">Role (Роль)</a></li><li class="sidebar-sub-header"><a href="/db_course_work/design/#grant" class="sidebar-link">Grant</a></li><li class="sidebar-sub-header"><a href="/db_course_work/design/#requesttype" class="sidebar-link">RequestType</a></li><li class="sidebar-sub-header"><a href="/db_course_work/design/#operationtype" class="sidebar-link">OperationType</a></li></ul></li><li class="sidebar-sub-header"><a href="/db_course_work/design/#реляціина-схема" class="sidebar-link">Реляційна схема</a></li></ul></li><li><a href="/db_course_work/software/" aria-current="page" class="active sidebar-link">Реалізація інформаційного та програмного забезпечення</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/db_course_work/software/#sql-скрипт" class="sidebar-link">SQL-скрипт</a></li><li class="sidebar-sub-header"><a href="/db_course_work/software/#restfull-сервіс-для-управління-даними" class="sidebar-link">RESTfull сервіс для управління даними</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/db_course_work/software/#підключення-до-бази-та-визначення-моделеи" class="sidebar-link">Підключення до бази та визначення моделей</a></li><li class="sidebar-sub-header"><a href="/db_course_work/software/#фаил-контролерів-які-оброблюють-запити" class="sidebar-link">Файл контролерів, які оброблюють запити</a></li><li class="sidebar-sub-header"><a href="/db_course_work/software/#фаил-сервісу-якии-робить-запити-до-бази-даних" class="sidebar-link">Файл сервісу який робить запити до бази даних</a></li><li class="sidebar-sub-header"><a href="/db_course_work/software/#кореневии-фаил-серверу" class="sidebar-link">Кореневий файл серверу</a></li></ul></li></ul></li><li><a href="/db_course_work/test/" class="sidebar-link">Тестування працездатності системи</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/db_course_work/test/#термінал-сервера" class="sidebar-link">Термінал сервера</a></li><li class="sidebar-sub-header"><a href="/db_course_work/test/#відображення-всіх-сутностеи" class="sidebar-link">Відображення всіх сутностей</a></li><li class="sidebar-sub-header"><a href="/db_course_work/test/#додавання-сутності-create" class="sidebar-link">Додавання сутності (CREATE)</a></li><li class="sidebar-sub-header"><a href="/db_course_work/test/#зчитування-сутності-по-id-read" class="sidebar-link">Зчитування сутності по id (READ)</a></li><li class="sidebar-sub-header"><a href="/db_course_work/test/#оновлення-сутності-по-id-update" class="sidebar-link">Оновлення сутності по id (UPDATE)</a></li><li class="sidebar-sub-header"><a href="/db_course_work/test/#видалення-сутності-delete" class="sidebar-link">Видалення сутності (DELETE)</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/db_course_work/test/#початковии-стан" class="sidebar-link">Початковий стан</a></li><li class="sidebar-sub-header"><a href="/db_course_work/test/#запит" class="sidebar-link">Запит</a></li><li class="sidebar-sub-header"><a href="/db_course_work/test/#результат" class="sidebar-link">Результат</a></li></ul></li></ul></li><li><a href="/db_course_work/conclusion/" class="sidebar-link">Висновки</a></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="реалізація-інформаціиного-та-програмного-забезпечення"><a href="#реалізація-інформаціиного-та-програмного-забезпечення" class="header-anchor">#</a> Реалізація інформаційного та програмного забезпечення</h1> <p>В рамках проекту розробляється:</p> <h2 id="sql-скрипт"><a href="#sql-скрипт" class="header-anchor">#</a> SQL-скрипт</h2> <div class="language- extra-class"><pre class="language-text"><code>-- MySQL Workbench Forward Engineering
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+
+-- -----------------------------------------------------
+-- Schema default_schema
+-- -----------------------------------------------------
+-- -----------------------------------------------------
+-- Schema imbaza
+-- -----------------------------------------------------
+DROP SCHEMA IF EXISTS `imbaza` ;
+
+-- -----------------------------------------------------
+-- Schema imbaza
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `imbaza` DEFAULT CHARACTER SET utf8 ;
+USE `imbaza` ;
+
+-- -----------------------------------------------------
+-- Table `imbaza`.`user`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `imbaza`.`user` ;
+
+CREATE TABLE IF NOT EXISTS `imbaza`.`user` (
+  `id` BINARY(16) NOT NULL DEFAULT (UUID_TO_BIN(UUID())),
+  `email` VARCHAR(45) NOT NULL,
+  `username` VARCHAR(45) NOT NULL,
+  `avatar` VARCHAR(100) NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
+  UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE,
+  UNIQUE INDEX `username_UNIQUE` (`username` ASC) VISIBLE)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `imbaza`.`role`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `imbaza`.`role` ;
+
+CREATE TABLE IF NOT EXISTS `imbaza`.`role` (
+  `id` BINARY(16) NOT NULL DEFAULT (UUID_TO_BIN(UUID())),
+  `name` ENUM('ProjectManager', 'ProjectUser', 'SystemAdministrator', 'WorkspaceManager') NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `imbaza`.`access`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `imbaza`.`access` ;
+
+CREATE TABLE IF NOT EXISTS `imbaza`.`access` (
+  `user_id` BINARY(16) NOT NULL,
+  `role_id` BINARY(16) NOT NULL,
+  PRIMARY KEY (`user_id`, `role_id`),
+  INDEX `fk_access_user_idx` (`user_id` ASC) VISIBLE,
+  INDEX `fk_access_role1_idx` (`role_id` ASC) VISIBLE,
+  CONSTRAINT `fk_access_user`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `imbaza`.`user` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_access_role`
+    FOREIGN KEY (`role_id`)
+    REFERENCES `imbaza`.`role` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `imbaza`.`operation_type`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `imbaza`.`operation_type` ;
+
+CREATE TABLE IF NOT EXISTS `imbaza`.`operation_type` (
+  `id` BINARY(16) NOT NULL DEFAULT (UUID_TO_BIN(UUID())),
+  `name` ENUM('create', 'read', 'update', 'delete') NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
+  UNIQUE INDEX `name_UNIQUE` (`name` ASC) VISIBLE)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `imbaza`.`request_type`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `imbaza`.`request_type` ;
+
+CREATE TABLE IF NOT EXISTS `imbaza`.`request_type` (
+  `id` BINARY(16) NOT NULL DEFAULT (UUID_TO_BIN(UUID())),
+  `object_id` BINARY(16) NOT NULL,
+  `operation_type_id` BINARY(16) NOT NULL,
+  PRIMARY KEY (`id`, `object_id`, `operation_type_id`),
+  INDEX `fk_request_type_operation_type1_idx` (`operation_type_id` ASC) VISIBLE,
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
+  CONSTRAINT `fk_request_operation`
+    FOREIGN KEY (`operation_type_id`)
+    REFERENCES `imbaza`.`operation_type` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `imbaza`.`grant`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `imbaza`.`grant` ;
+
+CREATE TABLE IF NOT EXISTS `imbaza`.`grant` (
+  `request_type_id` BINARY(16) NOT NULL,
+  `role_id` BINARY(16) NOT NULL,
+  PRIMARY KEY (`request_type_id`, `role_id`),
+  INDEX `fk_grant_role1_idx` (`role_id` ASC) VISIBLE,
+  CONSTRAINT `fk_grant_request`
+    FOREIGN KEY (`request_type_id`)
+    REFERENCES `imbaza`.`request_type` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_grant_role`
+    FOREIGN KEY (`role_id`)
+    REFERENCES `imbaza`.`role` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `imbaza`.`workspace`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `imbaza`.`workspace` ;
+
+CREATE TABLE IF NOT EXISTS `imbaza`.`workspace` (
+  `id` BINARY(16) NOT NULL DEFAULT (UUID_TO_BIN(UUID())),
+  `name` VARCHAR(45) NOT NULL,
+  `description` VARCHAR(200) NULL DEFAULT NULL,
+  `owner_id` BINARY(16) NOT NULL,
+  PRIMARY KEY (`id`, `owner_id`),
+  INDEX `fk_workspace_user1_idx` (`owner_id` ASC) VISIBLE,
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
+  UNIQUE INDEX `owner_id_UNIQUE` (`owner_id` ASC) VISIBLE,
+  UNIQUE INDEX `name_UNIQUE` (`name` ASC) VISIBLE,
+  CONSTRAINT `fk_workspace_user`
+    FOREIGN KEY (`owner_id`)
+    REFERENCES `imbaza`.`user` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `imbaza`.`project`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `imbaza`.`project` ;
+
+CREATE TABLE IF NOT EXISTS `imbaza`.`project` (
+  `id` BINARY(16) NOT NULL DEFAULT (UUID_TO_BIN(UUID())),
+  `name` VARCHAR(45) NOT NULL,
+  `description` VARCHAR(45) NULL DEFAULT NULL,
+  `manager_id` BINARY(16) NOT NULL,
+  `workspace_id` BINARY(16) NOT NULL,
+  PRIMARY KEY (`manager_id`, `workspace_id`, `id`),
+  INDEX `fk_project_user1_idx` (`manager_id` ASC) VISIBLE,
+  INDEX `fk_project_workspace1_idx` (`workspace_id` ASC) VISIBLE,
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
+  CONSTRAINT `fk_project_user`
+    FOREIGN KEY (`manager_id`)
+    REFERENCES `imbaza`.`user` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_project_workspace`
+    FOREIGN KEY (`workspace_id`)
+    REFERENCES `imbaza`.`workspace` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `imbaza`.`board`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `imbaza`.`board` ;
+
+CREATE TABLE IF NOT EXISTS `imbaza`.`board` (
+  `id` BINARY(16) NOT NULL DEFAULT (UUID_TO_BIN(UUID())),
+  `name` VARCHAR(45) NOT NULL,
+  `description` VARCHAR(200) NULL,
+  `project_id` BINARY(16) NOT NULL,
+  PRIMARY KEY (`id`, `project_id`),
+  INDEX `fk_board_project1_idx` (`project_id` ASC) VISIBLE,
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
+  CONSTRAINT `fk_board_project`
+    FOREIGN KEY (`project_id`)
+    REFERENCES `imbaza`.`project` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `imbaza`.`task`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `imbaza`.`task` ;
+
+CREATE TABLE IF NOT EXISTS `imbaza`.`task` (
+  `id` BINARY(16) NOT NULL DEFAULT (UUID_TO_BIN(UUID())),
+  `title` VARCHAR(45) NOT NULL,
+  `description` VARCHAR(200) NULL DEFAULT NULL,
+  `photo` VARCHAR(100) NULL DEFAULT NULL,
+  `deadline` DATETIME NULL DEFAULT NULL,
+  `board_id` BINARY(16) NOT NULL,
+  PRIMARY KEY (`id`, `board_id`),
+  INDEX `fk_task_board1_idx` (`board_id` ASC) VISIBLE,
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
+  CONSTRAINT `fk_task_board`
+    FOREIGN KEY (`board_id`)
+    REFERENCES `imbaza`.`board` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `imbaza`.`status`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `imbaza`.`status` ;
+
+CREATE TABLE IF NOT EXISTS `imbaza`.`status` (
+  `id` BINARY(16) NOT NULL DEFAULT (UUID_TO_BIN(UUID())),
+  `name` ENUM('Done', 'BugFound', 'InReview', 'InProgress', 'ToDo', 'BackLog') NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
+  UNIQUE INDEX `name_UNIQUE` (`name` ASC) VISIBLE)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `imbaza`.`task_status`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `imbaza`.`task_status` ;
+
+CREATE TABLE IF NOT EXISTS `imbaza`.`task_status` (
+  `task_id` BINARY(16) NOT NULL,
+  `status_id` BINARY(16) NOT NULL,
+  PRIMARY KEY (`task_id`, `status_id`),
+  INDEX `fk_task_status_status1_idx` (`status_id` ASC) VISIBLE,
+  CONSTRAINT `fk_task_status_task`
+    FOREIGN KEY (`task_id`)
+    REFERENCES `imbaza`.`task` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_task_status_status`
+    FOREIGN KEY (`status_id`)
+    REFERENCES `imbaza`.`status` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+</code></pre></div><h2 id="restfull-сервіс-для-управління-даними"><a href="#restfull-сервіс-для-управління-даними" class="header-anchor">#</a> RESTfull сервіс для управління даними</h2> <h3 id="підключення-до-бази-та-визначення-моделеи"><a href="#підключення-до-бази-та-визначення-моделеи" class="header-anchor">#</a> Підключення до бази та визначення моделей</h3> <div class="language-ts extra-class"><pre class="language-ts"><code>generator client <span class="token punctuation">{</span>
+  provider <span class="token operator">=</span> <span class="token string">&quot;prisma-client-js&quot;</span>
+<span class="token punctuation">}</span>
+
+datasource db <span class="token punctuation">{</span>
+  provider <span class="token operator">=</span> <span class="token string">&quot;mysql&quot;</span>
+  url      <span class="token operator">=</span> <span class="token function">env</span><span class="token punctuation">(</span><span class="token string">&quot;DATABASE_URL&quot;</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+model access <span class="token punctuation">{</span>
+  id      Bytes <span class="token decorator"><span class="token at operator">@</span><span class="token function">unique</span></span><span class="token punctuation">(</span>map<span class="token operator">:</span> <span class="token string">&quot;id_UNIQUE&quot;</span><span class="token punctuation">)</span> @<span class="token keyword">default</span><span class="token punctuation">(</span><span class="token function">dbgenerated</span><span class="token punctuation">(</span><span class="token string">&quot;(uuid_to_bin(uuid()))&quot;</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token decorator"><span class="token at operator">@</span><span class="token function">db</span></span><span class="token punctuation">.</span><span class="token function">Binary</span><span class="token punctuation">(</span><span class="token number">16</span><span class="token punctuation">)</span>
+  user_id Bytes <span class="token decorator"><span class="token at operator">@</span><span class="token function">db</span></span><span class="token punctuation">.</span><span class="token function">Binary</span><span class="token punctuation">(</span><span class="token number">16</span><span class="token punctuation">)</span>
+  role_id Bytes <span class="token decorator"><span class="token at operator">@</span><span class="token function">db</span></span><span class="token punctuation">.</span><span class="token function">Binary</span><span class="token punctuation">(</span><span class="token number">16</span><span class="token punctuation">)</span>
+  role    role  <span class="token decorator"><span class="token at operator">@</span><span class="token function">relation</span></span><span class="token punctuation">(</span>fields<span class="token operator">:</span> <span class="token punctuation">[</span>role_id<span class="token punctuation">]</span><span class="token punctuation">,</span> references<span class="token operator">:</span> <span class="token punctuation">[</span>id<span class="token punctuation">]</span><span class="token punctuation">,</span> map<span class="token operator">:</span> <span class="token string">&quot;fk_access_role&quot;</span><span class="token punctuation">)</span>
+  user    user  <span class="token decorator"><span class="token at operator">@</span><span class="token function">relation</span></span><span class="token punctuation">(</span>fields<span class="token operator">:</span> <span class="token punctuation">[</span>user_id<span class="token punctuation">]</span><span class="token punctuation">,</span> references<span class="token operator">:</span> <span class="token punctuation">[</span>id<span class="token punctuation">]</span><span class="token punctuation">,</span> map<span class="token operator">:</span> <span class="token string">&quot;fk_access_user&quot;</span><span class="token punctuation">)</span>
+
+  @<span class="token decorator"><span class="token at operator">@</span><span class="token function">id</span></span><span class="token punctuation">(</span><span class="token punctuation">[</span>id<span class="token punctuation">,</span> user_id<span class="token punctuation">,</span> role_id<span class="token punctuation">]</span><span class="token punctuation">)</span>
+  @<span class="token decorator"><span class="token at operator">@</span><span class="token function">index</span></span><span class="token punctuation">(</span><span class="token punctuation">[</span>role_id<span class="token punctuation">]</span><span class="token punctuation">,</span> map<span class="token operator">:</span> <span class="token string">&quot;fk_access_role1_idx&quot;</span><span class="token punctuation">)</span>
+  @<span class="token decorator"><span class="token at operator">@</span><span class="token function">index</span></span><span class="token punctuation">(</span><span class="token punctuation">[</span>user_id<span class="token punctuation">]</span><span class="token punctuation">,</span> map<span class="token operator">:</span> <span class="token string">&quot;fk_access_user_idx&quot;</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+model board <span class="token punctuation">{</span>
+  id          Bytes   <span class="token decorator"><span class="token at operator">@</span><span class="token function">unique</span></span><span class="token punctuation">(</span>map<span class="token operator">:</span> <span class="token string">&quot;id_UNIQUE&quot;</span><span class="token punctuation">)</span> @<span class="token keyword">default</span><span class="token punctuation">(</span><span class="token function">dbgenerated</span><span class="token punctuation">(</span><span class="token string">&quot;(uuid_to_bin(uuid()))&quot;</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token decorator"><span class="token at operator">@</span><span class="token function">db</span></span><span class="token punctuation">.</span><span class="token function">Binary</span><span class="token punctuation">(</span><span class="token number">16</span><span class="token punctuation">)</span>
+  name        String  <span class="token decorator"><span class="token at operator">@</span><span class="token function">db</span></span><span class="token punctuation">.</span><span class="token function">VarChar</span><span class="token punctuation">(</span><span class="token number">45</span><span class="token punctuation">)</span>
+  description String<span class="token operator">?</span> <span class="token decorator"><span class="token at operator">@</span><span class="token function">db</span></span><span class="token punctuation">.</span><span class="token function">VarChar</span><span class="token punctuation">(</span><span class="token number">200</span><span class="token punctuation">)</span>
+  project_id  Bytes   <span class="token decorator"><span class="token at operator">@</span><span class="token function">db</span></span><span class="token punctuation">.</span><span class="token function">Binary</span><span class="token punctuation">(</span><span class="token number">16</span><span class="token punctuation">)</span>
+  project     project <span class="token decorator"><span class="token at operator">@</span><span class="token function">relation</span></span><span class="token punctuation">(</span>fields<span class="token operator">:</span> <span class="token punctuation">[</span>project_id<span class="token punctuation">]</span><span class="token punctuation">,</span> references<span class="token operator">:</span> <span class="token punctuation">[</span>id<span class="token punctuation">]</span><span class="token punctuation">,</span> map<span class="token operator">:</span> <span class="token string">&quot;fk_board_project&quot;</span><span class="token punctuation">)</span>
+  task        task<span class="token punctuation">[</span><span class="token punctuation">]</span>
+
+  @<span class="token decorator"><span class="token at operator">@</span><span class="token function">id</span></span><span class="token punctuation">(</span><span class="token punctuation">[</span>id<span class="token punctuation">,</span> project_id<span class="token punctuation">]</span><span class="token punctuation">)</span>
+  @<span class="token decorator"><span class="token at operator">@</span><span class="token function">index</span></span><span class="token punctuation">(</span><span class="token punctuation">[</span>project_id<span class="token punctuation">]</span><span class="token punctuation">,</span> map<span class="token operator">:</span> <span class="token string">&quot;fk_board_project1_idx&quot;</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+model grant <span class="token punctuation">{</span>
+  request_type_id Bytes        <span class="token decorator"><span class="token at operator">@</span><span class="token function">db</span></span><span class="token punctuation">.</span><span class="token function">Binary</span><span class="token punctuation">(</span><span class="token number">16</span><span class="token punctuation">)</span>
+  role_id         Bytes        <span class="token decorator"><span class="token at operator">@</span><span class="token function">db</span></span><span class="token punctuation">.</span><span class="token function">Binary</span><span class="token punctuation">(</span><span class="token number">16</span><span class="token punctuation">)</span>
+  request_type    request_type <span class="token decorator"><span class="token at operator">@</span><span class="token function">relation</span></span><span class="token punctuation">(</span>fields<span class="token operator">:</span> <span class="token punctuation">[</span>request_type_id<span class="token punctuation">]</span><span class="token punctuation">,</span> references<span class="token operator">:</span> <span class="token punctuation">[</span>id<span class="token punctuation">]</span><span class="token punctuation">,</span> map<span class="token operator">:</span> <span class="token string">&quot;fk_grant_request&quot;</span><span class="token punctuation">)</span>
+  role            role         <span class="token decorator"><span class="token at operator">@</span><span class="token function">relation</span></span><span class="token punctuation">(</span>fields<span class="token operator">:</span> <span class="token punctuation">[</span>role_id<span class="token punctuation">]</span><span class="token punctuation">,</span> references<span class="token operator">:</span> <span class="token punctuation">[</span>id<span class="token punctuation">]</span><span class="token punctuation">,</span> map<span class="token operator">:</span> <span class="token string">&quot;fk_grant_role&quot;</span><span class="token punctuation">)</span>
+
+  @<span class="token decorator"><span class="token at operator">@</span><span class="token function">id</span></span><span class="token punctuation">(</span><span class="token punctuation">[</span>request_type_id<span class="token punctuation">,</span> role_id<span class="token punctuation">]</span><span class="token punctuation">)</span>
+  @<span class="token decorator"><span class="token at operator">@</span><span class="token function">index</span></span><span class="token punctuation">(</span><span class="token punctuation">[</span>role_id<span class="token punctuation">]</span><span class="token punctuation">,</span> map<span class="token operator">:</span> <span class="token string">&quot;fk_grant_role1_idx&quot;</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+model operation_type <span class="token punctuation">{</span>
+  id           Bytes               <span class="token decorator"><span class="token at operator">@</span><span class="token function">id</span></span> <span class="token decorator"><span class="token at operator">@</span><span class="token function">unique</span></span><span class="token punctuation">(</span>map<span class="token operator">:</span> <span class="token string">&quot;id_UNIQUE&quot;</span><span class="token punctuation">)</span> @<span class="token keyword">default</span><span class="token punctuation">(</span><span class="token function">dbgenerated</span><span class="token punctuation">(</span><span class="token string">&quot;(uuid_to_bin(uuid()))&quot;</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token decorator"><span class="token at operator">@</span><span class="token function">db</span></span><span class="token punctuation">.</span><span class="token function">Binary</span><span class="token punctuation">(</span><span class="token number">16</span><span class="token punctuation">)</span>
+  name         operation_type_name <span class="token decorator"><span class="token at operator">@</span><span class="token function">unique</span></span><span class="token punctuation">(</span>map<span class="token operator">:</span> <span class="token string">&quot;name_UNIQUE&quot;</span><span class="token punctuation">)</span>
+  request_type request_type<span class="token punctuation">[</span><span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+
+model project <span class="token punctuation">{</span>
+  id           Bytes     <span class="token decorator"><span class="token at operator">@</span><span class="token function">unique</span></span><span class="token punctuation">(</span>map<span class="token operator">:</span> <span class="token string">&quot;id_UNIQUE&quot;</span><span class="token punctuation">)</span> @<span class="token keyword">default</span><span class="token punctuation">(</span><span class="token function">dbgenerated</span><span class="token punctuation">(</span><span class="token string">&quot;(uuid_to_bin(uuid()))&quot;</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token decorator"><span class="token at operator">@</span><span class="token function">db</span></span><span class="token punctuation">.</span><span class="token function">Binary</span><span class="token punctuation">(</span><span class="token number">16</span><span class="token punctuation">)</span>
+  name         String    <span class="token decorator"><span class="token at operator">@</span><span class="token function">db</span></span><span class="token punctuation">.</span><span class="token function">VarChar</span><span class="token punctuation">(</span><span class="token number">45</span><span class="token punctuation">)</span>
+  description  String<span class="token operator">?</span>   <span class="token decorator"><span class="token at operator">@</span><span class="token function">db</span></span><span class="token punctuation">.</span><span class="token function">VarChar</span><span class="token punctuation">(</span><span class="token number">45</span><span class="token punctuation">)</span>
+  manager_id   Bytes     <span class="token decorator"><span class="token at operator">@</span><span class="token function">db</span></span><span class="token punctuation">.</span><span class="token function">Binary</span><span class="token punctuation">(</span><span class="token number">16</span><span class="token punctuation">)</span>
+  workspace_id Bytes     <span class="token decorator"><span class="token at operator">@</span><span class="token function">db</span></span><span class="token punctuation">.</span><span class="token function">Binary</span><span class="token punctuation">(</span><span class="token number">16</span><span class="token punctuation">)</span>
+  board        board<span class="token punctuation">[</span><span class="token punctuation">]</span>
+  user         user      <span class="token decorator"><span class="token at operator">@</span><span class="token function">relation</span></span><span class="token punctuation">(</span>fields<span class="token operator">:</span> <span class="token punctuation">[</span>manager_id<span class="token punctuation">]</span><span class="token punctuation">,</span> references<span class="token operator">:</span> <span class="token punctuation">[</span>id<span class="token punctuation">]</span><span class="token punctuation">,</span> map<span class="token operator">:</span> <span class="token string">&quot;fk_project_user&quot;</span><span class="token punctuation">)</span>
+  workspace    workspace <span class="token decorator"><span class="token at operator">@</span><span class="token function">relation</span></span><span class="token punctuation">(</span>fields<span class="token operator">:</span> <span class="token punctuation">[</span>workspace_id<span class="token punctuation">]</span><span class="token punctuation">,</span> references<span class="token operator">:</span> <span class="token punctuation">[</span>id<span class="token punctuation">]</span><span class="token punctuation">,</span> map<span class="token operator">:</span> <span class="token string">&quot;fk_project_workspace&quot;</span><span class="token punctuation">)</span>
+
+  @<span class="token decorator"><span class="token at operator">@</span><span class="token function">id</span></span><span class="token punctuation">(</span><span class="token punctuation">[</span>manager_id<span class="token punctuation">,</span> workspace_id<span class="token punctuation">,</span> id<span class="token punctuation">]</span><span class="token punctuation">)</span>
+  @<span class="token decorator"><span class="token at operator">@</span><span class="token function">index</span></span><span class="token punctuation">(</span><span class="token punctuation">[</span>manager_id<span class="token punctuation">]</span><span class="token punctuation">,</span> map<span class="token operator">:</span> <span class="token string">&quot;fk_project_user1_idx&quot;</span><span class="token punctuation">)</span>
+  @<span class="token decorator"><span class="token at operator">@</span><span class="token function">index</span></span><span class="token punctuation">(</span><span class="token punctuation">[</span>workspace_id<span class="token punctuation">]</span><span class="token punctuation">,</span> map<span class="token operator">:</span> <span class="token string">&quot;fk_project_workspace1_idx&quot;</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+model request_type <span class="token punctuation">{</span>
+  id                Bytes          <span class="token decorator"><span class="token at operator">@</span><span class="token function">unique</span></span><span class="token punctuation">(</span>map<span class="token operator">:</span> <span class="token string">&quot;id_UNIQUE&quot;</span><span class="token punctuation">)</span> @<span class="token keyword">default</span><span class="token punctuation">(</span><span class="token function">dbgenerated</span><span class="token punctuation">(</span><span class="token string">&quot;(uuid_to_bin(uuid()))&quot;</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token decorator"><span class="token at operator">@</span><span class="token function">db</span></span><span class="token punctuation">.</span><span class="token function">Binary</span><span class="token punctuation">(</span><span class="token number">16</span><span class="token punctuation">)</span>
+  object_id         Bytes          <span class="token decorator"><span class="token at operator">@</span><span class="token function">db</span></span><span class="token punctuation">.</span><span class="token function">Binary</span><span class="token punctuation">(</span><span class="token number">16</span><span class="token punctuation">)</span>
+  operation_type_id Bytes          <span class="token decorator"><span class="token at operator">@</span><span class="token function">db</span></span><span class="token punctuation">.</span><span class="token function">Binary</span><span class="token punctuation">(</span><span class="token number">16</span><span class="token punctuation">)</span>
+  grant             grant<span class="token punctuation">[</span><span class="token punctuation">]</span>
+  operation_type    operation_type <span class="token decorator"><span class="token at operator">@</span><span class="token function">relation</span></span><span class="token punctuation">(</span>fields<span class="token operator">:</span> <span class="token punctuation">[</span>operation_type_id<span class="token punctuation">]</span><span class="token punctuation">,</span> references<span class="token operator">:</span> <span class="token punctuation">[</span>id<span class="token punctuation">]</span><span class="token punctuation">,</span> map<span class="token operator">:</span> <span class="token string">&quot;fk_request_operation&quot;</span><span class="token punctuation">)</span>
+
+  @<span class="token decorator"><span class="token at operator">@</span><span class="token function">id</span></span><span class="token punctuation">(</span><span class="token punctuation">[</span>id<span class="token punctuation">,</span> object_id<span class="token punctuation">,</span> operation_type_id<span class="token punctuation">]</span><span class="token punctuation">)</span>
+  @<span class="token decorator"><span class="token at operator">@</span><span class="token function">index</span></span><span class="token punctuation">(</span><span class="token punctuation">[</span>operation_type_id<span class="token punctuation">]</span><span class="token punctuation">,</span> map<span class="token operator">:</span> <span class="token string">&quot;fk_request_type_operation_type1_idx&quot;</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+model role <span class="token punctuation">{</span>
+  id     Bytes     <span class="token decorator"><span class="token at operator">@</span><span class="token function">id</span></span> <span class="token decorator"><span class="token at operator">@</span><span class="token function">unique</span></span><span class="token punctuation">(</span>map<span class="token operator">:</span> <span class="token string">&quot;id_UNIQUE&quot;</span><span class="token punctuation">)</span> @<span class="token keyword">default</span><span class="token punctuation">(</span><span class="token function">dbgenerated</span><span class="token punctuation">(</span><span class="token string">&quot;(uuid_to_bin(uuid()))&quot;</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token decorator"><span class="token at operator">@</span><span class="token function">db</span></span><span class="token punctuation">.</span><span class="token function">Binary</span><span class="token punctuation">(</span><span class="token number">16</span><span class="token punctuation">)</span>
+  name   role_name
+  access access<span class="token punctuation">[</span><span class="token punctuation">]</span>
+  grant  grant<span class="token punctuation">[</span><span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+
+model status <span class="token punctuation">{</span>
+  id          Bytes         <span class="token decorator"><span class="token at operator">@</span><span class="token function">id</span></span> <span class="token decorator"><span class="token at operator">@</span><span class="token function">unique</span></span><span class="token punctuation">(</span>map<span class="token operator">:</span> <span class="token string">&quot;id_UNIQUE&quot;</span><span class="token punctuation">)</span> @<span class="token keyword">default</span><span class="token punctuation">(</span><span class="token function">dbgenerated</span><span class="token punctuation">(</span><span class="token string">&quot;(uuid_to_bin(uuid()))&quot;</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token decorator"><span class="token at operator">@</span><span class="token function">db</span></span><span class="token punctuation">.</span><span class="token function">Binary</span><span class="token punctuation">(</span><span class="token number">16</span><span class="token punctuation">)</span>
+  name        status_name   <span class="token decorator"><span class="token at operator">@</span><span class="token function">unique</span></span><span class="token punctuation">(</span>map<span class="token operator">:</span> <span class="token string">&quot;name_UNIQUE&quot;</span><span class="token punctuation">)</span>
+  task_status task_status<span class="token punctuation">[</span><span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+
+model task <span class="token punctuation">{</span>
+  id          Bytes         <span class="token decorator"><span class="token at operator">@</span><span class="token function">unique</span></span><span class="token punctuation">(</span>map<span class="token operator">:</span> <span class="token string">&quot;id_UNIQUE&quot;</span><span class="token punctuation">)</span> @<span class="token keyword">default</span><span class="token punctuation">(</span><span class="token function">dbgenerated</span><span class="token punctuation">(</span><span class="token string">&quot;(uuid_to_bin(uuid()))&quot;</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token decorator"><span class="token at operator">@</span><span class="token function">db</span></span><span class="token punctuation">.</span><span class="token function">Binary</span><span class="token punctuation">(</span><span class="token number">16</span><span class="token punctuation">)</span>
+  title       String        <span class="token decorator"><span class="token at operator">@</span><span class="token function">db</span></span><span class="token punctuation">.</span><span class="token function">VarChar</span><span class="token punctuation">(</span><span class="token number">45</span><span class="token punctuation">)</span>
+  description String<span class="token operator">?</span>       <span class="token decorator"><span class="token at operator">@</span><span class="token function">db</span></span><span class="token punctuation">.</span><span class="token function">VarChar</span><span class="token punctuation">(</span><span class="token number">200</span><span class="token punctuation">)</span>
+  photo       String<span class="token operator">?</span>       <span class="token decorator"><span class="token at operator">@</span><span class="token function">db</span></span><span class="token punctuation">.</span><span class="token function">VarChar</span><span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">)</span>
+  deadline    DateTime<span class="token operator">?</span>     <span class="token decorator"><span class="token at operator">@</span><span class="token function">db</span></span><span class="token punctuation">.</span><span class="token function">DateTime</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>
+  board_id    Bytes         <span class="token decorator"><span class="token at operator">@</span><span class="token function">db</span></span><span class="token punctuation">.</span><span class="token function">Binary</span><span class="token punctuation">(</span><span class="token number">16</span><span class="token punctuation">)</span>
+  board       board         <span class="token decorator"><span class="token at operator">@</span><span class="token function">relation</span></span><span class="token punctuation">(</span>fields<span class="token operator">:</span> <span class="token punctuation">[</span>board_id<span class="token punctuation">]</span><span class="token punctuation">,</span> references<span class="token operator">:</span> <span class="token punctuation">[</span>id<span class="token punctuation">]</span><span class="token punctuation">,</span> map<span class="token operator">:</span> <span class="token string">&quot;fk_task_board&quot;</span><span class="token punctuation">)</span>
+  task_status task_status<span class="token punctuation">[</span><span class="token punctuation">]</span>
+
+  @<span class="token decorator"><span class="token at operator">@</span><span class="token function">id</span></span><span class="token punctuation">(</span><span class="token punctuation">[</span>id<span class="token punctuation">,</span> board_id<span class="token punctuation">]</span><span class="token punctuation">)</span>
+  @<span class="token decorator"><span class="token at operator">@</span><span class="token function">index</span></span><span class="token punctuation">(</span><span class="token punctuation">[</span>board_id<span class="token punctuation">]</span><span class="token punctuation">,</span> map<span class="token operator">:</span> <span class="token string">&quot;fk_task_board1_idx&quot;</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+model task_status <span class="token punctuation">{</span>
+  task_id   Bytes  <span class="token decorator"><span class="token at operator">@</span><span class="token function">db</span></span><span class="token punctuation">.</span><span class="token function">Binary</span><span class="token punctuation">(</span><span class="token number">16</span><span class="token punctuation">)</span>
+  status_id Bytes  <span class="token decorator"><span class="token at operator">@</span><span class="token function">db</span></span><span class="token punctuation">.</span><span class="token function">Binary</span><span class="token punctuation">(</span><span class="token number">16</span><span class="token punctuation">)</span>
+  status    status <span class="token decorator"><span class="token at operator">@</span><span class="token function">relation</span></span><span class="token punctuation">(</span>fields<span class="token operator">:</span> <span class="token punctuation">[</span>status_id<span class="token punctuation">]</span><span class="token punctuation">,</span> references<span class="token operator">:</span> <span class="token punctuation">[</span>id<span class="token punctuation">]</span><span class="token punctuation">,</span> map<span class="token operator">:</span> <span class="token string">&quot;fk_task_status_status&quot;</span><span class="token punctuation">)</span>
+  task      task   <span class="token decorator"><span class="token at operator">@</span><span class="token function">relation</span></span><span class="token punctuation">(</span>fields<span class="token operator">:</span> <span class="token punctuation">[</span>task_id<span class="token punctuation">]</span><span class="token punctuation">,</span> references<span class="token operator">:</span> <span class="token punctuation">[</span>id<span class="token punctuation">]</span><span class="token punctuation">,</span> map<span class="token operator">:</span> <span class="token string">&quot;fk_task_status_task&quot;</span><span class="token punctuation">)</span>
+
+  @<span class="token decorator"><span class="token at operator">@</span><span class="token function">id</span></span><span class="token punctuation">(</span><span class="token punctuation">[</span>task_id<span class="token punctuation">,</span> status_id<span class="token punctuation">]</span><span class="token punctuation">)</span>
+  @<span class="token decorator"><span class="token at operator">@</span><span class="token function">index</span></span><span class="token punctuation">(</span><span class="token punctuation">[</span>status_id<span class="token punctuation">]</span><span class="token punctuation">,</span> map<span class="token operator">:</span> <span class="token string">&quot;fk_task_status_status1_idx&quot;</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+model user <span class="token punctuation">{</span>
+  id        Bytes      <span class="token decorator"><span class="token at operator">@</span><span class="token function">id</span></span> <span class="token decorator"><span class="token at operator">@</span><span class="token function">unique</span></span><span class="token punctuation">(</span>map<span class="token operator">:</span> <span class="token string">&quot;id_UNIQUE&quot;</span><span class="token punctuation">)</span> @<span class="token keyword">default</span><span class="token punctuation">(</span><span class="token function">dbgenerated</span><span class="token punctuation">(</span><span class="token string">&quot;(uuid_to_bin(uuid()))&quot;</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token decorator"><span class="token at operator">@</span><span class="token function">db</span></span><span class="token punctuation">.</span><span class="token function">Binary</span><span class="token punctuation">(</span><span class="token number">16</span><span class="token punctuation">)</span>
+  email     String     <span class="token decorator"><span class="token at operator">@</span><span class="token function">unique</span></span><span class="token punctuation">(</span>map<span class="token operator">:</span> <span class="token string">&quot;email_UNIQUE&quot;</span><span class="token punctuation">)</span> <span class="token decorator"><span class="token at operator">@</span><span class="token function">db</span></span><span class="token punctuation">.</span><span class="token function">VarChar</span><span class="token punctuation">(</span><span class="token number">45</span><span class="token punctuation">)</span>
+  username  String     <span class="token decorator"><span class="token at operator">@</span><span class="token function">unique</span></span><span class="token punctuation">(</span>map<span class="token operator">:</span> <span class="token string">&quot;username_UNIQUE&quot;</span><span class="token punctuation">)</span> <span class="token decorator"><span class="token at operator">@</span><span class="token function">db</span></span><span class="token punctuation">.</span><span class="token function">VarChar</span><span class="token punctuation">(</span><span class="token number">45</span><span class="token punctuation">)</span>
+  avatar    String<span class="token operator">?</span>    <span class="token decorator"><span class="token at operator">@</span><span class="token function">db</span></span><span class="token punctuation">.</span><span class="token function">VarChar</span><span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">)</span>
+  access    access<span class="token punctuation">[</span><span class="token punctuation">]</span>
+  project   project<span class="token punctuation">[</span><span class="token punctuation">]</span>
+  workspace workspace<span class="token operator">?</span>
+<span class="token punctuation">}</span>
+
+model workspace <span class="token punctuation">{</span>
+  id          Bytes     <span class="token decorator"><span class="token at operator">@</span><span class="token function">unique</span></span><span class="token punctuation">(</span>map<span class="token operator">:</span> <span class="token string">&quot;id_UNIQUE&quot;</span><span class="token punctuation">)</span> @<span class="token keyword">default</span><span class="token punctuation">(</span><span class="token function">dbgenerated</span><span class="token punctuation">(</span><span class="token string">&quot;(uuid_to_bin(uuid()))&quot;</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token decorator"><span class="token at operator">@</span><span class="token function">db</span></span><span class="token punctuation">.</span><span class="token function">Binary</span><span class="token punctuation">(</span><span class="token number">16</span><span class="token punctuation">)</span>
+  name        String    <span class="token decorator"><span class="token at operator">@</span><span class="token function">unique</span></span><span class="token punctuation">(</span>map<span class="token operator">:</span> <span class="token string">&quot;name_UNIQUE&quot;</span><span class="token punctuation">)</span> <span class="token decorator"><span class="token at operator">@</span><span class="token function">db</span></span><span class="token punctuation">.</span><span class="token function">VarChar</span><span class="token punctuation">(</span><span class="token number">45</span><span class="token punctuation">)</span>
+  description String<span class="token operator">?</span>   <span class="token decorator"><span class="token at operator">@</span><span class="token function">db</span></span><span class="token punctuation">.</span><span class="token function">VarChar</span><span class="token punctuation">(</span><span class="token number">200</span><span class="token punctuation">)</span>
+  owner_id    Bytes     <span class="token decorator"><span class="token at operator">@</span><span class="token function">unique</span></span><span class="token punctuation">(</span>map<span class="token operator">:</span> <span class="token string">&quot;owner_id_UNIQUE&quot;</span><span class="token punctuation">)</span> <span class="token decorator"><span class="token at operator">@</span><span class="token function">db</span></span><span class="token punctuation">.</span><span class="token function">Binary</span><span class="token punctuation">(</span><span class="token number">16</span><span class="token punctuation">)</span>
+  project     project<span class="token punctuation">[</span><span class="token punctuation">]</span>
+  user        user      <span class="token decorator"><span class="token at operator">@</span><span class="token function">relation</span></span><span class="token punctuation">(</span>fields<span class="token operator">:</span> <span class="token punctuation">[</span>owner_id<span class="token punctuation">]</span><span class="token punctuation">,</span> references<span class="token operator">:</span> <span class="token punctuation">[</span>id<span class="token punctuation">]</span><span class="token punctuation">,</span> map<span class="token operator">:</span> <span class="token string">&quot;fk_workspace_user&quot;</span><span class="token punctuation">)</span>
+
+  @<span class="token decorator"><span class="token at operator">@</span><span class="token function">id</span></span><span class="token punctuation">(</span><span class="token punctuation">[</span>id<span class="token punctuation">,</span> owner_id<span class="token punctuation">]</span><span class="token punctuation">)</span>
+  @<span class="token decorator"><span class="token at operator">@</span><span class="token function">index</span></span><span class="token punctuation">(</span><span class="token punctuation">[</span>owner_id<span class="token punctuation">]</span><span class="token punctuation">,</span> map<span class="token operator">:</span> <span class="token string">&quot;fk_workspace_user1_idx&quot;</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">enum</span> operation_type_name <span class="token punctuation">{</span>
+  create
+  read
+  update
+  <span class="token keyword">delete</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">enum</span> role_name <span class="token punctuation">{</span>
+  ProjectManager
+  ProjectUser
+  SystemAdministrator
+  WorkspaceManager
+<span class="token punctuation">}</span>
+
+<span class="token keyword">enum</span> status_name <span class="token punctuation">{</span>
+  Done
+  BugFound
+  InReview
+  InProgress
+  ToDo
+  BackLog
+<span class="token punctuation">}</span>
+
+
+</code></pre></div><h3 id="фаил-контролерів-які-оброблюють-запити"><a href="#фаил-контролерів-які-оброблюють-запити" class="header-anchor">#</a> Файл контролерів, які оброблюють запити</h3> <div class="language-ts extra-class"><pre class="language-ts"><code><span class="token keyword">import</span> <span class="token punctuation">{</span>
+  Controller<span class="token punctuation">,</span>
+  Get<span class="token punctuation">,</span>
+  Post<span class="token punctuation">,</span>
+  Body<span class="token punctuation">,</span>
+  Patch<span class="token punctuation">,</span>
+  Param<span class="token punctuation">,</span>
+  Delete<span class="token punctuation">,</span>
+<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@nestjs/common'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> StatusService <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'./status.service'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> CreateStatusDto <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'./dto/create-status.dto'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> UpdateStatusDto <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'./dto/update-status.dto'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> ApiCreatedResponse<span class="token punctuation">,</span> ApiOkResponse<span class="token punctuation">,</span> ApiTags <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@nestjs/swagger'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> StatusEntity <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'./entities/status.entity'</span><span class="token punctuation">;</span>
+
+<span class="token decorator"><span class="token at operator">@</span><span class="token function">Controller</span></span><span class="token punctuation">(</span><span class="token string">'status'</span><span class="token punctuation">)</span>
+<span class="token decorator"><span class="token at operator">@</span><span class="token function">ApiTags</span></span><span class="token punctuation">(</span><span class="token string">'status'</span><span class="token punctuation">)</span>
+<span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">StatusController</span> <span class="token punctuation">{</span>
+  <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token keyword">private</span> <span class="token keyword">readonly</span> statusService<span class="token operator">:</span> StatusService<span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+
+  <span class="token decorator"><span class="token at operator">@</span><span class="token function">Post</span></span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+  <span class="token decorator"><span class="token at operator">@</span><span class="token function">ApiCreatedResponse</span></span><span class="token punctuation">(</span><span class="token punctuation">{</span> type<span class="token operator">:</span> StatusEntity <span class="token punctuation">}</span><span class="token punctuation">)</span>
+  <span class="token function">create</span><span class="token punctuation">(</span><span class="token decorator"><span class="token at operator">@</span><span class="token function">Body</span></span><span class="token punctuation">(</span><span class="token punctuation">)</span> createStatusDto<span class="token operator">:</span> CreateStatusDto<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>statusService<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span>createStatusDto<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token decorator"><span class="token at operator">@</span><span class="token function">Get</span></span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+  <span class="token decorator"><span class="token at operator">@</span><span class="token function">ApiOkResponse</span></span><span class="token punctuation">(</span><span class="token punctuation">{</span> type<span class="token operator">:</span> StatusEntity<span class="token punctuation">,</span> isArray<span class="token operator">:</span> <span class="token boolean">true</span> <span class="token punctuation">}</span><span class="token punctuation">)</span>
+  <span class="token function">findAll</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>statusService<span class="token punctuation">.</span><span class="token function">findAll</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token decorator"><span class="token at operator">@</span><span class="token function">Get</span></span><span class="token punctuation">(</span><span class="token string">':id'</span><span class="token punctuation">)</span>
+  <span class="token decorator"><span class="token at operator">@</span><span class="token function">ApiOkResponse</span></span><span class="token punctuation">(</span><span class="token punctuation">{</span> type<span class="token operator">:</span> StatusEntity <span class="token punctuation">}</span><span class="token punctuation">)</span>
+  <span class="token function">findOne</span><span class="token punctuation">(</span><span class="token decorator"><span class="token at operator">@</span><span class="token function">Param</span></span><span class="token punctuation">(</span><span class="token string">'id'</span><span class="token punctuation">)</span> id<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>statusService<span class="token punctuation">.</span><span class="token function">findOne</span><span class="token punctuation">(</span>id<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token decorator"><span class="token at operator">@</span><span class="token function">Patch</span></span><span class="token punctuation">(</span><span class="token string">':id'</span><span class="token punctuation">)</span>
+  <span class="token decorator"><span class="token at operator">@</span><span class="token function">ApiOkResponse</span></span><span class="token punctuation">(</span><span class="token punctuation">{</span> type<span class="token operator">:</span> StatusEntity <span class="token punctuation">}</span><span class="token punctuation">)</span>
+  <span class="token function">update</span><span class="token punctuation">(</span><span class="token decorator"><span class="token at operator">@</span><span class="token function">Param</span></span><span class="token punctuation">(</span><span class="token string">'id'</span><span class="token punctuation">)</span> id<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">,</span> <span class="token decorator"><span class="token at operator">@</span><span class="token function">Body</span></span><span class="token punctuation">(</span><span class="token punctuation">)</span> updateStatusDto<span class="token operator">:</span> UpdateStatusDto<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>statusService<span class="token punctuation">.</span><span class="token function">update</span><span class="token punctuation">(</span>id<span class="token punctuation">,</span> updateStatusDto<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token decorator"><span class="token at operator">@</span><span class="token function">Delete</span></span><span class="token punctuation">(</span><span class="token string">':id'</span><span class="token punctuation">)</span>
+  <span class="token decorator"><span class="token at operator">@</span><span class="token function">ApiOkResponse</span></span><span class="token punctuation">(</span><span class="token punctuation">{</span> type<span class="token operator">:</span> StatusEntity <span class="token punctuation">}</span><span class="token punctuation">)</span>
+  <span class="token function">remove</span><span class="token punctuation">(</span><span class="token decorator"><span class="token at operator">@</span><span class="token function">Param</span></span><span class="token punctuation">(</span><span class="token string">'id'</span><span class="token punctuation">)</span> id<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>statusService<span class="token punctuation">.</span><span class="token function">remove</span><span class="token punctuation">(</span>id<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h3 id="фаил-сервісу-якии-робить-запити-до-бази-даних"><a href="#фаил-сервісу-якии-робить-запити-до-бази-даних" class="header-anchor">#</a> Файл сервісу який робить запити до бази даних</h3> <div class="language-ts extra-class"><pre class="language-ts"><code><span class="token keyword">import</span> <span class="token punctuation">{</span> Body<span class="token punctuation">,</span> Injectable<span class="token punctuation">,</span> NotFoundException <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@nestjs/common'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> CreateStatusDto <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'./dto/create-status.dto'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> UpdateStatusDto <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'./dto/update-status.dto'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> PrismaService <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'src/prisma/prisma.service'</span><span class="token punctuation">;</span>
+
+<span class="token decorator"><span class="token at operator">@</span><span class="token function">Injectable</span></span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">StatusService</span> <span class="token punctuation">{</span>
+  <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token keyword">private</span> prisma<span class="token operator">:</span> PrismaService<span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+  <span class="token keyword">async</span> <span class="token function">create</span><span class="token punctuation">(</span><span class="token decorator"><span class="token at operator">@</span><span class="token function">Body</span></span><span class="token punctuation">(</span><span class="token punctuation">)</span> createStatusDto<span class="token operator">:</span> CreateStatusDto<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">try</span> <span class="token punctuation">{</span>
+      <span class="token keyword">const</span> status <span class="token operator">=</span> <span class="token keyword">await</span> <span class="token keyword">this</span><span class="token punctuation">.</span>prisma<span class="token punctuation">.</span>status<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token punctuation">{</span> data<span class="token operator">:</span> createStatusDto <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">const</span> id<span class="token operator">:</span> <span class="token builtin">string</span> <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>prisma<span class="token punctuation">.</span><span class="token function">hex</span><span class="token punctuation">(</span>status<span class="token punctuation">.</span>id<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">return</span> <span class="token punctuation">{</span> <span class="token operator">...</span>status<span class="token punctuation">,</span> id <span class="token punctuation">}</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span>error<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">NotFoundException</span><span class="token punctuation">(</span><span class="token string">'invalis status'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token keyword">async</span> <span class="token function">findAll</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> statuses <span class="token operator">=</span> <span class="token keyword">await</span> <span class="token keyword">this</span><span class="token punctuation">.</span>prisma<span class="token punctuation">.</span>status<span class="token punctuation">.</span><span class="token function">findMany</span><span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">const</span> responseStatuses <span class="token operator">=</span> statuses<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token punctuation">(</span>status<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">(</span><span class="token punctuation">{</span>
+      <span class="token operator">...</span>status<span class="token punctuation">,</span>
+      id<span class="token operator">:</span> <span class="token keyword">this</span><span class="token punctuation">.</span>prisma<span class="token punctuation">.</span><span class="token function">hex</span><span class="token punctuation">(</span>status<span class="token punctuation">.</span>id<span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> responseStatuses<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token keyword">async</span> <span class="token function">findOne</span><span class="token punctuation">(</span>id<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> idUnHexed<span class="token operator">:</span> Buffer <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>prisma<span class="token punctuation">.</span><span class="token function">unhex</span><span class="token punctuation">(</span>id<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">const</span> status <span class="token operator">=</span> <span class="token keyword">await</span> <span class="token keyword">this</span><span class="token punctuation">.</span>prisma<span class="token punctuation">.</span>status<span class="token punctuation">.</span><span class="token function">findFirst</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+      where<span class="token operator">:</span> <span class="token punctuation">{</span> id<span class="token operator">:</span> idUnHexed <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>status<span class="token punctuation">)</span>
+      <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">NotFoundException</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">status with id: </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>id<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string"> does not exist</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token punctuation">{</span> <span class="token operator">...</span>status<span class="token punctuation">,</span> id <span class="token punctuation">}</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token keyword">async</span> <span class="token function">update</span><span class="token punctuation">(</span>id<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">,</span> updateStatusDto<span class="token operator">:</span> UpdateStatusDto<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> idUnHexed<span class="token operator">:</span> Buffer <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>prisma<span class="token punctuation">.</span><span class="token function">unhex</span><span class="token punctuation">(</span>id<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">const</span> status <span class="token operator">=</span> <span class="token keyword">await</span> <span class="token keyword">this</span><span class="token punctuation">.</span>prisma<span class="token punctuation">.</span>status<span class="token punctuation">.</span><span class="token function">update</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+      where<span class="token operator">:</span> <span class="token punctuation">{</span> id<span class="token operator">:</span> idUnHexed <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      data<span class="token operator">:</span> updateStatusDto<span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>status<span class="token punctuation">)</span>
+      <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">NotFoundException</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">status with id: </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>id<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string"> does not exist</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token punctuation">{</span> <span class="token operator">...</span>status<span class="token punctuation">,</span> id <span class="token punctuation">}</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token keyword">async</span> <span class="token function">remove</span><span class="token punctuation">(</span>id<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> idUnHexed<span class="token operator">:</span> Buffer <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>prisma<span class="token punctuation">.</span><span class="token function">unhex</span><span class="token punctuation">(</span>id<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">const</span> status <span class="token operator">=</span> <span class="token keyword">await</span> <span class="token keyword">this</span><span class="token punctuation">.</span>prisma<span class="token punctuation">.</span>status<span class="token punctuation">.</span><span class="token function">delete</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+      where<span class="token operator">:</span> <span class="token punctuation">{</span> id<span class="token operator">:</span> idUnHexed <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>status<span class="token punctuation">)</span>
+      <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">NotFoundException</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">status with id: </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>id<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string"> does not exist</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token punctuation">{</span> message<span class="token operator">:</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">status </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>status<span class="token punctuation">.</span>name<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string"> was deleted</span><span class="token template-punctuation string">`</span></span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+</code></pre></div><h3 id="кореневии-фаил-серверу"><a href="#кореневии-фаил-серверу" class="header-anchor">#</a> Кореневий файл серверу</h3> <div class="language-ts extra-class"><pre class="language-ts"><code><span class="token keyword">import</span> <span class="token punctuation">{</span> NestFactory <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@nestjs/core'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> AppModule <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'./app.module'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> SwaggerModule<span class="token punctuation">,</span> DocumentBuilder <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@nestjs/swagger'</span><span class="token punctuation">;</span>
+
+<span class="token keyword">async</span> <span class="token keyword">function</span> <span class="token function">bootstrap</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> app <span class="token operator">=</span> <span class="token keyword">await</span> NestFactory<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span>AppModule<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">const</span> config <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">DocumentBuilder</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">setTitle</span><span class="token punctuation">(</span><span class="token string">'Median'</span><span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">setDescription</span><span class="token punctuation">(</span><span class="token string">'The Median API description'</span><span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">setVersion</span><span class="token punctuation">(</span><span class="token string">'0.1'</span><span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">const</span> document <span class="token operator">=</span> SwaggerModule<span class="token punctuation">.</span><span class="token function">createDocument</span><span class="token punctuation">(</span>app<span class="token punctuation">,</span> config<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  SwaggerModule<span class="token punctuation">.</span><span class="token function">setup</span><span class="token punctuation">(</span><span class="token string">'api'</span><span class="token punctuation">,</span> app<span class="token punctuation">,</span> document<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">await</span> app<span class="token punctuation">.</span><span class="token function">listen</span><span class="token punctuation">(</span><span class="token number">3000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token function">bootstrap</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+
+</code></pre></div></div> <footer class="page-edit"><!----> <div class="last-updated"><span class="prefix">Останнє оновлення:</span> <span class="time">12/29/2022, 8:32:25 PM</span></div></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/db_course_work/design/" class="prev">
+        Проектування інформаційного забезпечення
+      </a></span> <span class="next"><a href="/db_course_work/test/">
+        Тестування працездатності системи
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"><!----></div></div>
+    <script src="/db_course_work/assets/js/app.49997985.js" defer></script><script src="/db_course_work/assets/js/2.be347b12.js" defer></script><script src="/db_course_work/assets/js/23.1cf13222.js" defer></script>
+  </body>
+</html>
